@@ -1,8 +1,11 @@
 <template>
   <div id="app">
-    <keep-alive :exclude="['Detail','Category']">
-      <router-view />
+    <keep-alive>
+      <router-view v-if="$route.meta.keepAlive"/>
     </keep-alive>
+
+      <router-view v-if="!$route.meta.keepAlive"/>
+
     <main-tab-bar/>
   </div>
 </template>

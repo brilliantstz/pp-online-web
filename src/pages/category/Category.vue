@@ -100,7 +100,7 @@
       }
     },
     created() {
-      console.log(this.$route.query.currentIndex);
+      //console.log(this.$route.query.currentIndex);
       if (typeof (this.$route.query.currentIndex) === 'undefined'){
         this.parentCategoryIndex = 0
       }else{
@@ -109,6 +109,21 @@
 
       //1 请求一级分类数据
       this.getParentCategory()
+
+    },
+    destroyed() {
+      //console.log('destroyed.......');
+    },
+    activated(){
+      //console.log("activated");
+    },
+    deactivated(){
+      //console.log("deactivated");
+     //console.log(this.$route.name.name)
+     // 控制页面不同跳转后是否缓存
+      if (!(this.$route.name.name == 'Detail' || this.$route.name.name == 'Leaf')) {
+        this.$destroy()
+      }
 
     },
     mounted() {
@@ -152,7 +167,7 @@
       //3 请求一级分类数据下的所有商品
       getParentCategoryGoods(index,categoryId,type){
         getParentCategoryGoods(categoryId,type).then(res => {
-          console.log(res.data);
+          //console.log(res.data);
           this.childCategoryData[index].childCategoryDetail[type] = res.data
         })
       },
@@ -174,6 +189,8 @@
             this.currentType = 'hottest'
             break;
         }
+        this.$refs.tabControl1.currentIndex = index
+        this.$refs.tabControl2.currentIndex = index
       },
       backTopClick() {
         //console.log('backTopClick');
@@ -190,7 +207,6 @@
       imageLoad() {
         this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop
       }
-
     }
   }
 </script>

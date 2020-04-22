@@ -49,14 +49,12 @@
   }
 
   .recommend-item {
-    display: flex;
+    flex: 1;
   }
 
   .recommend-item img {
     width: 70px;
     height: 70px;
-    margin-left: 8px;
-    margin-top: 8px;
     border-radius: 50%;
     margin-bottom: 10px;
   }

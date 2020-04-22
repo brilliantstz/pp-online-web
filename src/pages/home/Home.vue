@@ -109,16 +109,16 @@
     },
     activated(){
       //console.log("activated");
-      this.$refs.scroll.scrollTo(0,this.saveY,0)
-      this.$refs.scroll.refresh()
+      //this.$refs.scroll.scrollTo(0,this.saveY,0)
+      //this.$refs.scroll.refresh()
     },
     deactivated(){
       //console.log("deactivated");
       // 1 保存y值
-      this.saveY = this.$refs.scroll.getScrollY()
+      //this.saveY = this.$refs.scroll.getScrollY()
 
       // 2 取消全局事件的监听
-      this.$bus.$off('itemImageLoad',this.itemImgListener)
+      //this.$bus.$off('itemImageLoad',this.itemImgListener)
     },
     methods: {
 
@@ -187,7 +187,7 @@
         const page = this.goodsList[type].page + 1;
         getHomeGoodsData(type, page).then(res => {
           //console.log(res.data.records);
-          this.goodsList[type].list.push(...res.data.records);
+          this.goodsList[type].list = res.data.records
           this.goodsList[type].page++;
           this.$refs.scroll.finishPullUp()
           this.$refs.scroll.refresh()

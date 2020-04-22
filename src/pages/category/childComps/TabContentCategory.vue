@@ -1,7 +1,7 @@
 <template>
   <div id="tab-content-category">
     <grid-view :cols="3" :lineSpace="15" :v-margin="20" v-if="childCategory">
-      <div class="item" v-for="(item, index) in childCategory" :key="index">
+      <div class="item" v-for="(item, index) in childCategory" :key="index" @click="childCategoryClick(item)">
         <a>
           <img class="item-img" :src="item.cateImageUrl" alt="" @load="imageLoad">
           <div class="item-text">{{item.cateName}}</div>
@@ -21,7 +21,8 @@
     },
     data(){
       return {
-        isLoad: false
+        isLoad: false,
+        childCategoryItem: {}
       }
     },
     props: {
@@ -38,6 +39,15 @@
           this.$emit("imageLoad")
           this.isLoad = true
         }
+      },
+      childCategoryClick(item){
+        //console.log(item.categoryId);
+        this.$router.push({
+          path: '/leaf',
+          query: {
+            childCategoryItem: item
+          }
+        })
       }
     }
   }

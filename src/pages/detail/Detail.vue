@@ -162,7 +162,7 @@
         }
       },
       created() {
-        console.log(this.$route.query.goodsItemDetail);
+        //console.log(this.$route.query.goodsItemDetail);
         this.goodsItemDetail = this.$route.query.goodsItemDetail
         this.detailSwiperImages =  this.goodsItemDetail.goodsDetail.detailImageUrl
         this.shopInfo = this.goodsItemDetail.shop
@@ -175,7 +175,7 @@
         this.themeTopYs.push(500)
         this.themeTopYs.push(800)
 
-        console.log(this.themeTopYs)
+        //console.log(this.themeTopYs)
       },
       methods: {
         titleClick(index) {

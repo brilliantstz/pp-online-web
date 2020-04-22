@@ -50,11 +50,13 @@
 
 <style scoped>
   .goods-item {
-    margin-bottom: 10px;
     position: relative;
 
-    width: 48%;
-    margin-left: 4px;
+    width: 46%;
+    flex: 1;
+
+    margin: 5px 4px;
+
 
   }
 
@@ -65,7 +67,7 @@
   }
 
   .goods-info {
-    font-size: 12px;
+    font-size: 11px;
     overflow: hidden;
     text-align: center;
 

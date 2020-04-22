@@ -47,7 +47,7 @@
 
   img {
     height: 166px;
-    width: 100%;
+    width: 100vh;
   }
 
 </style>

@@ -14,13 +14,24 @@ export function getChildCategory(categoryId) {
 
 export function getParentCategoryGoods(categoryId,type) {
   return request({
-    url: '/front/goods/listWithCategory',
+    url: '/front/goods/primary/listWithCategory',
     params: {
       categoryId,
       type
     }
   })
 }
+
+export function getChildCategoryGoods(categoryId,type) {
+  return request({
+    url: '/front/goods/second/listWithCategory',
+    params: {
+      categoryId,
+      type
+    }
+  })
+}
+
 
 
 
