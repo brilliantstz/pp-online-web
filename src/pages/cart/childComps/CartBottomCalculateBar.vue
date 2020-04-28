@@ -1,5 +1,5 @@
 <template>
-  <div class="cart-bottom-bar">
+  <div class="cart-bottom-calculate-bar">
     <div class="check-content">
       <check-button class="check-button" :isChecked="isCheckedAll"
                     @click.native="checkedAllClick"/>
@@ -24,7 +24,7 @@
     import {mapGetters} from 'vuex'
 
     export default {
-      name: "CartBottomBar",
+      name: "CartBottomCalculateBar",
       components: {
         CheckButton
       },
@@ -35,21 +35,32 @@
       computed: {
         ...mapGetters(['cartGoodsList']),
         totalPrice() {
-          return '¥' + this.cartGoodsList.filter(item => {
-            return item.isChecked
-          }).reduce((previousValue, item) => {
-            return previousValue + item.price * item.count
-          },0).toFixed(2)
+          if (this.cartGoodsList !== null) {
+            return '¥' + this.cartGoodsList.filter(item => {
+              return item.isChecked
+            }).reduce((previousValue, item) => {
+              return previousValue + item.price * item.count
+            },0).toFixed(2)
+          }else{
+            return 0
+          }
         },
+
         checkedLength() {
-          return this.cartGoodsList.filter(item => {
-            return item.isChecked
-          }).length
+          if (this.cartGoodsList !== null) {
+            return this.cartGoodsList.filter(item => {
+              return item.isChecked
+            }).length
+          }else {
+            return 0
+          }
         },
         isCheckedAll(){
-          return this.cartGoodsList.length !== 0 && this.cartGoodsList.filter(item => {
-            return item.isChecked
-          }).length ===  this.cartGoodsList.length
+          if (this.cartGoodsList !== null){
+            return this.cartGoodsList.length !== 0 && this.cartGoodsList.filter(item => {
+              return item.isChecked
+            }).length ===  this.cartGoodsList.length
+          }
         },
       },
       methods: {
@@ -78,7 +89,7 @@
 </script>
 
 <style scoped>
-  .cart-bottom-bar {
+  .cart-bottom-calculate-bar {
 
     display: flex;
     background-color: #eee;
@@ -93,7 +104,7 @@
     line-height: 40px;
 
     font-size: 14px;
-    
+
   }
 
   .check-content {

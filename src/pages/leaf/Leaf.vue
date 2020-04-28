@@ -1,6 +1,6 @@
 <template>
   <div id="leaf">
-    <leaf-nav-bar :child-category-item="childCategoryItem"/>
+    <leaf-nav-bar :child-category-item-name="childCategoryItemName"/>
 
     <tab-control
       class="tab-control"
@@ -155,7 +155,8 @@
     },
     data() {
       return {
-        childCategoryItem: {},
+        childCategoryItemId: '',
+        childCategoryItemName: '',
         goodsList: {
           'recommend': [],
           'newest': [],
@@ -171,12 +172,24 @@
       }
     },
     created() {
-      this.childCategoryItem = this.$route.query.childCategoryItem
+      this.childCategoryItemId = this.$route.query.childCategoryItemId
+      this.childCategoryItemName = this.$route.query.childCategoryItemName
 
-      this.getChildCategoryGoods(this.childCategoryItem.categoryId,"recommend")
-      this.getChildCategoryGoods(this.childCategoryItem.categoryId,"newest")
-      this.getChildCategoryGoods(this.childCategoryItem.categoryId,"hottest")
+      this.getChildCategoryGoods(this.childCategoryItemId,"recommend")
+      this.getChildCategoryGoods(this.childCategoryItemId,"newest")
+      this.getChildCategoryGoods(this.childCategoryItemId,"hottest")
 
+    },
+    beforeRouteEnter(to, from, next) {
+      //console.log("Leaf------>beforeRouteEnter")
+      next()
+    },
+    beforeRouteLeave(to, from, next) {
+      //console.log("Leaf------>beforeRouteLeave")
+      if ( to.name.name !== 'Detail' ) {
+        from.meta.keepAlive = false
+      }
+      next()
     },
     methods: {
       tabClick(index) {

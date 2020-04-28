@@ -1,10 +1,18 @@
 export default {
-
+  cartGoodsListLength(state) {
+    return state.cartGoodsList? state.cartGoodsList.length : 0
+  },
   cartGoodsList(state) {
     return state.cartGoodsList
   },
 
-  cartGoodsListLength(state) {
-    return state.cartGoodsList.length
+  starGoodsListLength(state) {
+    return state.starGoodsList? state.starGoodsList.length : 0
+  },
+
+  starGoodsList(state) {
+    return state.starGoodsList
   }
+
+
 }

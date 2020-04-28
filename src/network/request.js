@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+import qs from 'qs'
+
 export function request(config) {
   // 1.创建axios的实例
   const instance = axios.create({
@@ -10,6 +12,14 @@ export function request(config) {
   // 2.axios的拦截器
   // 2.1.请求拦截的作用
   instance.interceptors.request.use(config => {
+
+    if (config.method=="post"){
+
+      config.data = qs.stringify(config.data);
+
+      config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+
+    }
     return config
   }, err => {
     // console.log(err);

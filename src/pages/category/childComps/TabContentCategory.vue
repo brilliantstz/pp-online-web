@@ -21,8 +21,7 @@
     },
     data(){
       return {
-        isLoad: false,
-        childCategoryItem: {}
+        isLoad: false
       }
     },
     props: {
@@ -45,7 +44,8 @@
         this.$router.push({
           path: '/leaf',
           query: {
-            childCategoryItem: item
+            childCategoryItemId: item.categoryId,
+            childCategoryItemName: item.cateName
           }
         })
       }

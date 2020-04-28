@@ -1,12 +1,14 @@
 <template>
-  <div id="leaf-nav-bar">
+  <div id="order-nav-bar">
     <nav-bar>
       <div slot="left" class="back" @click="backClick">
         <img src="~assets/img/common/back.svg" alt="">
       </div>
       <div slot="center">
-        {{childCategoryItemName}}
+        订单列表(0)
       </div>
+      <div slot="right" @click="rightClick" v-if="!rightStatus">管理</div>
+      <div slot="right" @click="rightClick" v-if="rightStatus">完成</div>
     </nav-bar>
   </div>
 </template>
@@ -16,21 +18,23 @@
   import NavBar from 'components/common/navbar/NavBar'
 
   export default {
-    name: "LeafNavBar",
+    name: "OrderNavBar",
     components: {
       NavBar
     },
-    props: {
-      childCategoryItemName: {
-        default(){
-          return ""
-        }
+    data() {
+      return {
+        rightStatus: false
       }
     },
     methods: {
       backClick() {
         //console.log("backClick");
         this.$router.back()
+      },
+
+      rightClick() {
+        this.rightStatus = ! this.rightStatus
       }
     }
   }
@@ -38,8 +42,9 @@
 
 <style scoped>
 
-  #leaf-nav-bar {
-    background-color:  #f6f6f6;
+  #order-nav-bar {
+    background-color:  var(--color-tint);
+    color: #fff;
   }
 
   .back img {

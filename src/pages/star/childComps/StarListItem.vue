@@ -1,17 +1,16 @@
 <template>
-  <div class="cart-list-item">
+  <div class="star-list-item">
     <div class="item-selector" @click="checkedClick">
-      <check-button :isChecked="cartGoods.isChecked"/>
+      <check-button :isChecked="starGoods.isChecked"/>
     </div>
     <div class="item-img">
-      <img :src="cartGoods.image" alt="商品图片" />
+      <img :src="starGoods.image" alt="商品图片" />
     </div>
     <div class="item-info">
-      <div class="item-title">{{ cartGoods.name }}</div>
-      <div class="item-desc">商品描述: {{ cartGoods.title }}</div>
+      <div class="item-title">{{ starGoods.name }}</div>
+      <div class="item-desc">商品描述: {{ starGoods.title }}</div>
       <div class="info-bottom">
-        <div class="item-price left">￥{{ cartGoods.price }}</div>
-        <div class="item-count right">X{{ cartGoods.count }}</div>
+        <div class="item-price left">￥{{ starGoods.price }}</div>
       </div>
     </div>
   </div>
@@ -22,12 +21,12 @@
     import CheckButton from 'components/content/checkButton/CheckButton'
 
     export default {
-      name: "CartListItem",
+      name: "StarListItem",
       components: {
         CheckButton
       },
       props: {
-        cartGoods: {
+        starGoods: {
           default() {
             return {}
           }
@@ -36,7 +35,7 @@
       methods: {
         checkedClick() {
           //console.log("checkedClick");
-          this.cartGoods.isChecked = !this.cartGoods.isChecked
+          this.starGoods.isChecked = !this.starGoods.isChecked
         }
       }
     }
@@ -44,7 +43,7 @@
 
 <style scoped>
 
-  .cart-list-item {
+  .star-list-item {
     display: flex;
     width: 100%;
     padding: 5px;

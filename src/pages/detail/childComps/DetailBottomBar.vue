@@ -2,16 +2,23 @@
   <div class="bottom-bar">
     <div class="bar-item bar-left">
       <div>
-        <i class="icon service"/>
-        <span class="text" @click="toService">客服</span>
+        <div class="service" @click="toService">
+          <img src="~assets/img/detail/service.svg" alt="">
+        </div>
+        <span class="text" >客服</span>
       </div>
       <div>
-        <i class="icon shop"/>
-        <span class="text" @click="toShop">店铺</span>
+        <div class="shop" @click="toShop">
+          <img src="~assets/img/detail/shop.svg" alt="">
+        </div>
+        <span class="text" >店铺</span>
       </div>
       <div>
-        <i class="icon collect"/>
-        <span class="text" @click="toStar">收藏</span>
+        <div class="collect"  @click="toStar">
+          <img src="~assets/img/detail/star.svg" alt="" v-if="!startActive">
+          <img src="~assets/img/detail/star-active.svg" alt="" v-if="startActive">
+        </div>
+        <span class="text">收藏</span>
       </div>
     </div>
     <div class="bar-item bar-right">
@@ -24,6 +31,14 @@
 <script>
     export default {
       name: "DetailBottomBar",
+      props: {
+        startActive: {
+          type: Boolean,
+          default() {
+            return false
+          }
+        }
+      },
       methods: {
         toService(){
           console.log("正在跳转到客服页面......")
@@ -32,14 +47,16 @@
           console.log("正在跳转到店铺页面......")
         },
         toStar(){
-          console.log("成功收藏该商品")
+          //console.log("成功收藏该商品")
+          this.$emit('addToStar')
         },
         addToCart() {
           //console.log("addToCart");
           this.$emit('addToCart')
         },
         buy(){
-          console.log("正在跳转到支付页面......")
+          //console.log("正在跳转到支付页面......")
+          this.$emit('buy')
         }
       }
     }
@@ -75,12 +92,13 @@
     font-size: 14px;
   }
 
-  .bar-left .icon {
-    display: block;
-    width: 22px;
-    height: 22px;
-    margin: 4px auto 3px;
-    background: url("~assets/img/detail/detail_bottom.png") 0 0/100%;
+  .bar-left {
+    padding: 5px 0px;
+  }
+
+  .bar-left img {
+    height: 24px;
+    width: 24px;
   }
 
   .bar-left .service {

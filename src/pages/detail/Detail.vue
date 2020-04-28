@@ -9,7 +9,7 @@
 
         <detail-swiper  :detailSwiperImages="detailSwiperImages"/>
 
-        <detail-base-info :detailBaseInfo="goodsItemDetail"/>
+        <detail-base-info :detailBaseInfo="goodsInfo"/>
         <detail-shop-info :shop-info="shopInfo" ref="shop"/>
 
         <ul>
@@ -117,7 +117,9 @@
 
       </scroll>
 
-      <detail-bottom-bar @addToCart="addToCart"/>
+      <detail-bottom-bar @addToStar="addToStar"
+                          @addToCart="addToCart"
+                          @buy="buy" :start-active="isStar"/>
 
 
       <back-top @click.native="backTopClick" v-show="isShowBackTop"/>
@@ -137,6 +139,9 @@
     import Scroll from 'components/common/scroll/Scroll'
     import BackTop from 'components/content/backTop/BackTop'
 
+    import { getHomeGoodsInfoData } from "network/home"
+
+    import {mapGetters} from 'vuex'
 
     export default {
       name: "Detail",
@@ -154,28 +159,52 @@
       data() {
         return {
           isShowBackTop: false,
-          goodsItemDetail: {},
+          goodsInfo: {},
           detailSwiperImages: "",
           shopInfo: {},
           themeTopYs: [],
           currentIndex: 0,
         }
       },
-      created() {
-        //console.log(this.$route.query.goodsItemDetail);
-        this.goodsItemDetail = this.$route.query.goodsItemDetail
-        this.detailSwiperImages =  this.goodsItemDetail.goodsDetail.detailImageUrl
-        this.shopInfo = this.goodsItemDetail.shop
+      computed: {
+        ...mapGetters(['starGoodsList']),
 
+        isStar() {
+          if(this.starGoodsList === null){
+            return false
+          }else{
+
+            return this.starGoodsList.filter(item => {
+              return  item.id === this.$route.query.goodsItemId
+            }).length !== 0
+
+          }
+        }
 
       },
+      created() {
+        //console.log(this.$route.query.goodsItemDetail);
+
+        this.getHomeGoodsInfoData(this.$route.query.goodsItemId)
+
+      },
+      beforeRouteEnter(to, from, next) {
+        //console.log("Detail------>beforeRouteEnter------>"+from.name.name)
+        next()
+      },
+      beforeRouteLeave(to, from, next) {
+        //console.log("Detail------>beforeRouteLeave")
+        next()
+      },
+
       mounted() {
         this.themeTopYs.push(0)
-        this.themeTopYs.push(this.$refs.shop.$el.offsetTop)
+        this.themeTopYs.push(this.$refs.shop.$el.offsetTop )
         this.themeTopYs.push(500)
         this.themeTopYs.push(800)
 
-        //console.log(this.themeTopYs)
+        console.log(this.themeTopYs)
+
       },
       methods: {
         titleClick(index) {
@@ -203,27 +232,78 @@
           }
 
         },
-        addToCart(){
-          console.log("添加商品到购物车......");
-          // 1 获取购物车需要展示的商品信息
-          const cartGoods = {}
-          cartGoods.image = this.goodsItemDetail.goods.goodsImageUrl
-          cartGoods.name = this.goodsItemDetail.goods.goodsName
-          cartGoods.title = this.goodsItemDetail.goods.goodsTitle
-          cartGoods.price = this.goodsItemDetail.goodsDetail.newPrice
-          cartGoods.id = this.goodsItemDetail.goods.goodsId
 
-          //默认的属性
-          cartGoods.count = 0
-          cartGoods.isChecked = false
-
-          // 2 将商品添加到购物车里
-          this.$store.dispatch('addToCart', cartGoods).then(res => {
-
-            this.$toast.showMsg(res)
-
+        getHomeGoodsInfoData(goodsId) {
+          getHomeGoodsInfoData(goodsId).then(res => {
+            this.goodsInfo = res.data
+            this.detailSwiperImages = res.data.goodsDetail.detailImageUrl
+            this.shopInfo = res.data.shop
           })
+        },
 
+        addToStar() {
+          if (this.$store.state.token.token === "null"){
+            this.$router.replace({
+              path: '/toLogin'
+            })
+          }else{
+            //console.log("添加商品到收藏夹......");
+            // 1 获取收藏夹需要展示的商品信息
+            const starGoods = {}
+            starGoods.image = this.goodsInfo.goods.goodsImageUrl
+            starGoods.name = this.goodsInfo.goods.goodsName
+            starGoods.title = this.goodsInfo.goods.goodsTitle
+            starGoods.price = this.goodsInfo.goodsDetail.newPrice
+            starGoods.id = this.goodsInfo.goods.goodsId
+
+            //默认的属性
+            starGoods.isChecked = false
+            starGoods.isStar = true
+
+            // 2 将商品添加到收藏夹里
+            this.$store.dispatch("addToStar", starGoods).then(res => {
+              this.$toast.showMsg(res)
+            })
+          }
+        },
+
+        addToCart(){
+
+          if (this.$store.state.token.token === "null"){
+            this.$router.replace({
+              path: '/toLogin'
+            })
+          }else{
+            //console.log("添加商品到购物车......");
+            // 1 获取购物车需要展示的商品信息
+            const cartGoods = {}
+            cartGoods.image = this.goodsInfo.goods.goodsImageUrl
+            cartGoods.name = this.goodsInfo.goods.goodsName
+            cartGoods.title = this.goodsInfo.goods.goodsTitle
+            cartGoods.price = this.goodsInfo.goodsDetail.newPrice
+            cartGoods.id = this.goodsInfo.goods.goodsId
+
+            //默认的属性
+            cartGoods.count = 0
+            cartGoods.isChecked = false
+
+            // 2 将商品添加到购物车里
+            this.$store.dispatch("addToCart", cartGoods).then(res => {
+              this.$toast.showMsg(res)
+            })
+
+          }
+
+        },
+
+        buy() {
+          if (this.$store.state.token.token === "null"){
+            this.$router.push({
+              path: '/toLogin'
+            })
+          }else{
+            this.$toast.showMsg("即将跳转到支付页面......")
+          }
         }
       }
     }

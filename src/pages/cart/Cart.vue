@@ -2,7 +2,12 @@
   <div id="cart">
 
     <nav-bar class="cart-nav">
+      <div slot="left" class="back" @click="backClick">
+        <img src="~assets/img/common/back.svg" alt="">
+      </div>
       <div slot="center">购物车({{cartGoodsListLength}})</div>
+      <div slot="right" @click="rightClick" v-if="!rightStatus">管理</div>
+      <div slot="right" @click="rightClick" v-if="rightStatus">完成</div>
     </nav-bar>
 
     <scroll class="content"
@@ -14,7 +19,8 @@
 
     </scroll>
 
-    <cart-bottom-bar/>
+    <cart-bottom-calculate-bar v-if="!rightStatus"/>
+    <cart-bottom-remove-bar v-if="rightStatus"/>
 
   </div>
 </template>
@@ -23,7 +29,8 @@
 
     import NavBar from 'components/common/navbar/NavBar'
     import CartList from './childComps/CartList'
-    import CartBottomBar from './childComps/CartBottomBar'
+    import CartBottomCalculateBar from './childComps/CartBottomCalculateBar'
+    import CartBottomRemoveBar from './childComps/CartBottomRemoveBar'
 
     import Scroll from 'components/common/scroll/Scroll'
 
@@ -34,13 +41,29 @@
       components: {
         NavBar,
         CartList,
-        CartBottomBar,
+        CartBottomCalculateBar,
+        CartBottomRemoveBar,
 
         Scroll
+      },
+      data() {
+        return {
+          rightStatus: false
+        }
       },
       computed: {
         ...mapGetters(['cartGoodsListLength'])
       },
+      methods: {
+        backClick() {
+          //console.log("backClick");
+          this.$router.back()
+        },
+
+        rightClick() {
+          this.rightStatus = ! this.rightStatus
+        }
+      }
     }
 </script>
 
@@ -54,6 +77,10 @@
   .cart-nav {
     background-color: var(--color-tint);
     color: #fff;
+  }
+
+  .back img {
+    margin-top: 10px;
   }
 
   .content {

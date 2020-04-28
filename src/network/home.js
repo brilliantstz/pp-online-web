@@ -23,4 +23,10 @@ export function getHomeGoodsData(type, page) {
   })
 }
 
+export function getHomeGoodsInfoData(goodsId) {
+  return request({
+    url:  '/front/goods/goodsInfo/'+ goodsId,
+  })
+}
+
 

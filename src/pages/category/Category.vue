@@ -104,27 +104,24 @@
       if (typeof (this.$route.query.currentIndex) === 'undefined'){
         this.parentCategoryIndex = 0
       }else{
-        this.parentCategoryIndex = this.$route.query.currentIndex
+        this.parentCategoryIndex = parseInt(this.$route.query.currentIndex)
       }
 
       //1 请求一级分类数据
       this.getParentCategory()
 
     },
-    destroyed() {
-      //console.log('destroyed.......');
+    beforeRouteEnter(to, from, next) {
+      //console.log("category------>beforeRouteEnter------>"+from.name.name)
+      next()
     },
-    activated(){
-      //console.log("activated");
-    },
-    deactivated(){
-      //console.log("deactivated");
-     //console.log(this.$route.name.name)
-     // 控制页面不同跳转后是否缓存
-      if (!(this.$route.name.name == 'Detail' || this.$route.name.name == 'Leaf')) {
-        this.$destroy()
+    beforeRouteLeave(to, from, next) {
+      //console.log("category------>beforeRouteLeave")
+      //console.log(to.name.name)
+      if ( ((to.name.name !== 'Leaf') && (to.name.name !== 'Detail')) ) {
+        from.meta.keepAlive = false
       }
-
+      next()
     },
     mounted() {
       this.tabOffsetTop = this.$refs.tabControl2.$el.offsetTop

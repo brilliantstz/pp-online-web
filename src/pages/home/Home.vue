@@ -76,6 +76,7 @@
           'newest': {page: 0, list: []},
           'hottest': {page: 0, list: []}
         },
+
         currentType: 'recommend',
 
         isShowBackTop: false,
@@ -118,7 +119,7 @@
       //this.saveY = this.$refs.scroll.getScrollY()
 
       // 2 取消全局事件的监听
-      //this.$bus.$off('itemImageLoad',this.itemImgListener)
+      this.$bus.$off('itemImageLoad',this.itemImgListener)
     },
     methods: {
 
@@ -187,13 +188,12 @@
         const page = this.goodsList[type].page + 1;
         getHomeGoodsData(type, page).then(res => {
           //console.log(res.data.records);
-          this.goodsList[type].list = res.data.records
+          this.goodsList[type].list.push(...res.data.records)
           this.goodsList[type].page++;
           this.$refs.scroll.finishPullUp()
           this.$refs.scroll.refresh()
         })
-      }
-
+      },
 
     }
 

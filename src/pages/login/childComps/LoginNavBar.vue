@@ -1,11 +1,11 @@
 <template>
-  <div id="leaf-nav-bar">
+  <div id="login-nav-bar">
     <nav-bar>
       <div slot="left" class="back" @click="backClick">
         <img src="~assets/img/common/back.svg" alt="">
       </div>
       <div slot="center">
-        {{childCategoryItemName}}
+        登录/注册
       </div>
     </nav-bar>
   </div>
@@ -16,16 +16,9 @@
   import NavBar from 'components/common/navbar/NavBar'
 
   export default {
-    name: "LeafNavBar",
+    name: "LoginNavBar",
     components: {
       NavBar
-    },
-    props: {
-      childCategoryItemName: {
-        default(){
-          return ""
-        }
-      }
     },
     methods: {
       backClick() {
@@ -38,8 +31,8 @@
 
 <style scoped>
 
-  #leaf-nav-bar {
-    background-color:  #f6f6f6;
+  #login-nav-bar {
+    background-color:  var(--color-tint);
   }
 
   .back img {

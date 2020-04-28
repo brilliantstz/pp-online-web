@@ -1,11 +1,11 @@
 <template>
     <div class="goods-item" @click="goodsItemClick">
-      <img v-lazy="goodsItem.goods.goodsImageUrl" alt="" @load="imageLoad">
+      <img v-lazy="goodsItem.goodsImageUrl" alt="" @load="imageLoad">
       <div class="goods-info">
-        <p>{{goodsItem.goods.goodsTitle}}</p>
-        <span class="price">￥{{goodsItem.goodsDetail.newPrice}}</span>
-        <span>{{goodsItem.goods.sale}}人已付款</span>
-        <p>{{goodsItem.goods.createTime}}</p>
+        <p>{{goodsItem.goodsTitle}}</p>
+        <span class="price">{{goodsItem.price}}</span>
+        <span>{{goodsItem.sale}}人已付款</span>
+        <p>{{goodsItem.createTime}}</p>
       </div>
     </div>
 </template>
@@ -15,7 +15,7 @@
         name: "GoodsListItem",
         data() {
           return {
-            goodsItemDetail: {}
+            goodsItemId: ''
           }
         },
         props: {
@@ -36,11 +36,11 @@
           },
           goodsItemClick() {
             //console.log(this.goodsItem);
-            this.goodsItemDetail = this.goodsItem
+            this.goodsItemId = this.goodsItem.goodsId
             this.$router.push({
               path: '/detail',
               query: {
-                goodsItemDetail: this.goodsItemDetail
+                goodsItemId: this.goodsItemId
               }
             })
           }

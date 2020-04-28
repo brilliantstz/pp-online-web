@@ -1,7 +1,17 @@
 <template>
-    <div class="cart-list">
-      <cart-list-item v-for="item in cartGoodsList" :cart-goods="item"/>
+    <div id="cart-list">
+      <cart-list-item  v-show="cartGoodsList.length !== 0" v-for="item in cartGoodsList" :cart-goods="item"/>
+
+      <div class="show-msg" v-show="cartGoodsList.length === 0">
+
+        亲，您的购物车暂无商品！
+
+      </div>
+
     </div>
+
+
+
 </template>
 <script>
 
@@ -12,15 +22,26 @@
     export default {
       name: "CartList",
       components: {
-        CartListItem
+        CartListItem,
       },
       computed: {
         ...mapGetters(['cartGoodsList'])
+      },
+      created() {
+        console.log(this.cartGoodsList.length === 0)
       }
     }
 </script>
 
 <style scoped>
 
+
+  #cart-list .show-msg {
+    text-align: center;
+
+    height: calc(100Vh - 133px) ;
+    line-height: calc(100Vh - 133px) ;
+
+  }
 
 </style>
