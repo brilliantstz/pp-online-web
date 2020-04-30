@@ -28,7 +28,7 @@
         ...mapGetters(['cartGoodsList'])
       },
       created() {
-        console.log(this.cartGoodsList.length === 0)
+        //console.log(this.cartGoodsList.length === 0)
       }
     }
 </script>

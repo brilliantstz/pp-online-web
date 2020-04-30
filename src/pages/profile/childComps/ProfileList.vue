@@ -33,7 +33,7 @@
           <img src="~assets/img/profile/arrow.png" alt="">
         </div>
       </div>
-      <div class="profile-list-item">
+      <div class="profile-list-item" @click="addressClick">
         <div class="left-icon">
           <img src="~assets/img/profile/address.svg" alt="">
         </div>
@@ -67,6 +67,12 @@
       starClick() {
         this.$router.push({
           path: '/star'
+        })
+      },
+
+      addressClick() {
+        this.$router.push({
+          path: '/address'
         })
       }
     }

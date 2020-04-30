@@ -10,8 +10,6 @@
 
     </div>
 
-
-
 </template>
 <script>
 
@@ -28,7 +26,7 @@
         ...mapGetters(['starGoodsList'])
       },
       created() {
-        console.log(this.starGoodsList.length === 0)
+        //console.log(this.starGoodsList.length === 0)
       }
     }
 </script>

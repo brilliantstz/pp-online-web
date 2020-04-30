@@ -50,6 +50,12 @@
             }).length ===  this.starGoodsList.length
           }
         },
+
+        addToCartGoods() {
+          return this.starGoodsList.filter(item => {
+            return item.isChecked
+          })[0]
+        }
       },
       methods: {
         checkedAllClick() {
@@ -68,8 +74,13 @@
           //console.log("toCalculateClick");
           if(this.checkedLength === 0) {
             this.$toast.showMsg('请选择你要添加到购物车的商品')
+          }else if(this.checkedLength !== 1){
+            this.$toast.showMsg('一次只能添加一个商品到购物车')
           }else{
-            this.$toast.showMsg('即将跳转到支付页面......')
+            //console.log(this.addToCartGoods);
+            this.$store.dispatch("addToCart", this.addToCartGoods).then(res => {
+              this.$toast.showMsg(res)
+            })
           }
         }
       }

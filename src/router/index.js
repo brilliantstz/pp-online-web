@@ -15,6 +15,9 @@ const ContentLogin = () => import('pages/login/childComps/ContentLogin')
 const ContentRegister = () => import('pages/login/childComps/ContentRegister')
 const Order = () => import('pages/order/Order')
 const Star = () => import('pages/star/Star')
+const Address = () => import('pages/address/Address')
+const NewAddress = () => import('pages/address/NewAddress')
+const UpdateAddress = () => import('pages/address/UpdateAddress')
 
 const router =  new Router({
   routes: [
@@ -94,6 +97,27 @@ const router =  new Router({
       path: '/star',
       name: Star,
       component: Star,
+      meta: {
+        keepAlive: false
+      }
+    },{
+      path: '/address',
+      name: Address,
+      component: Address,
+      meta: {
+        keepAlive: false
+      }
+    },{
+      path: '/newAddress',
+      name: NewAddress,
+      component: NewAddress,
+      meta: {
+        keepAlive: false
+      }
+    },{
+      path: '/updateAddress',
+      name: UpdateAddress,
+      component: UpdateAddress,
       meta: {
         keepAlive: false
       }

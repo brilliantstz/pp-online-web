@@ -257,8 +257,8 @@
             starGoods.id = this.goodsInfo.goods.goodsId
 
             //默认的属性
-            starGoods.isChecked = false
-            starGoods.isStar = true
+            starGoods.count = 0
+            starGoods.isChecked = true
 
             // 2 将商品添加到收藏夹里
             this.$store.dispatch("addToStar", starGoods).then(res => {
@@ -285,7 +285,7 @@
 
             //默认的属性
             cartGoods.count = 0
-            cartGoods.isChecked = false
+            cartGoods.isChecked = true
 
             // 2 将商品添加到购物车里
             this.$store.dispatch("addToCart", cartGoods).then(res => {

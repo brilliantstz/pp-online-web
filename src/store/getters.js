@@ -9,10 +9,12 @@ export default {
   starGoodsListLength(state) {
     return state.starGoodsList? state.starGoodsList.length : 0
   },
-
   starGoodsList(state) {
     return state.starGoodsList
-  }
+  },
 
+  addressList(state) {
+    return state.addressList
+  }
 
 }

@@ -57,7 +57,9 @@
             this.$store.dispatch('addUserAndToken', obj).then(res => {
               this.$toast.showMsg(res)
 
-              this.$router.go(-1);
+              this.$router.replace({
+                path: '/'
+              })
 
             })
           }else{

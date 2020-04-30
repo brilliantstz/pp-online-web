@@ -12,5 +12,8 @@ export default  {
                   : [],
   starGoodsList: localStorage.getItem((storage.get('userAndToken') ? storage.get('userAndToken').user.username : "null") + "starGoodsList") ?
                   JSON.parse(localStorage.getItem((storage.get('userAndToken') ? storage.get('userAndToken').user.username : "null") + "starGoodsList"))
-                  : []
+                  : [],
+  addressList: localStorage.getItem((storage.get('userAndToken') ? storage.get('userAndToken').user.username : "null") + "addressList") ?
+                JSON.parse(localStorage.getItem((storage.get('userAndToken') ? storage.get('userAndToken').user.username : "null") + "addressList"))
+                : []
 }
